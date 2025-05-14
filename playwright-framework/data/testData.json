@@ -1,18 +1,17 @@
 {
-    "users": [
-      {
-        "username": "standard_user",
-        "password": "secret_sauce"
-      },
-      {
-        "username": "locked_out_user",
-        "password": "secret_sauce"
-      }
-    ],
-    "checkoutDetails": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "postalCode": "12345"
+  "users": {
+    "standardUser": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "lockedOutUser": {
+      "username": "locked_out_user",
+      "password": "secret_sauce"
     }
+  },
+  "checkoutDetails": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "postalCode": "12345"
   }
-  
+}

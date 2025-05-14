@@ -1,24 +1,30 @@
+const locators = require('../locators/checkoutLocators');
+
 class CheckoutPage {
-    constructor(page) {
-      this.page = page;
-      this.checkoutButton = page.locator('button[data-test="checkout"]');
-      this.firstNameInput = page.locator('#first-name');
-      this.lastNameInput = page.locator('#last-name');
-      this.postalCodeInput = page.locator('#postal-code');
-      this.continueButton = page.locator('#continue');
-      this.finishButton = page.locator('button[data-test="finish"]');
-    }
-
-
-    async proceedToCheckout(firstName, lastName, postalCode) {
-      await this.checkoutButton.click();
-      await this.firstNameInput.fill(firstName);  
-      await this.lastNameInput.fill(lastName);  
-      await this.postalCodeInput.fill(postalCode);
-    // await this.page.waitForSelector('button[data-test="continue"]', { state: 'visible', timeout: 10000 });
-    await this.continueButton.click();  
-      await this.finishButton.click();
-    }
+  constructor(page) {
+    this.page = page;
+    this.checkoutButton = page.locator(locators.checkoutButton);
+    this.firstNameInput = page.locator(locators.firstNameInput);
+    this.lastNameInput = page.locator(locators.lastNameInput);
+    this.postalCodeInput = page.locator(locators.postalCodeInput);
+    this.continueButton = page.locator(locators.continueButton);
+    this.finishButton = page.locator(locators.finishButton);
+    this.completeHeader = page.locator(locators.completeHeader);
   }
-  module.exports = CheckoutPage;
-  
+
+  async proceedToCheckout(firstName, lastName, postalCode) {
+    await this.checkoutButton.click();
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
+    await this.postalCodeInput.fill(postalCode);
+    await this.continueButton.click();
+    await this.finishButton.click();
+  }
+
+  async verifyOrderCompletion() {
+    await this.page.waitForSelector(locators.completeHeader);
+    return this.completeHeader.textContent();
+  }
+}
+
+module.exports = CheckoutPage;

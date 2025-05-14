@@ -1,18 +1,24 @@
+const locators = require('../locators/inventoryLocators');
+
 class InventoryPage {
-    constructor(page) {
-      this.page = page;
-      this.inventoryItems = page.locator('.inventory_item');
-      this.addToCartButton = page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]');
-      this.cartBadge = page.locator('.shopping_cart_badge');
-    }
-  
-    async addItemToCart() {
-      await this.addToCartButton.click();
-    }
-  
-    async goToCart() {
-      await this.page.locator('.shopping_cart_link').click();
+  constructor(page) {
+    this.page = page;
+    this.addToCartBackpack = page.locator(locators.addToCartBackpack);
+    this.addToCartBikeLight = page.locator(locators.addToCartBikeLight);
+    this.cartLink = page.locator(locators.cartLink);
+  }
+
+  async addItemToCart(item) {
+    if (item === 'backpack') {
+      await this.addToCartBackpack.click();
+    } else if (item === 'bike-light') {
+      await this.addToCartBikeLight.click();
     }
   }
-  module.exports = InventoryPage;
-  
+
+  async goToCart() {
+    await this.cartLink.click();
+  }
+}
+
+module.exports = InventoryPage;
